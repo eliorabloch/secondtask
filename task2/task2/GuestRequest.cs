@@ -95,10 +95,13 @@ namespace task2
                     }
                 }
             }
+          
             if (!(available && available2))// This is where we update the capacity.
             {
                 Console.WriteLine("The request has been answerred");
             }
+             day = entryDate.Day + 1;
+             month = entryDate.Month + 1;
         }
     }
 }
