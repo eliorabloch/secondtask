@@ -8,10 +8,27 @@ namespace task2
 {
     class GuestRequest
     {
-        public DateTime entryDate { get; set; }
+        public DateTime entryDate { get ; set; }
         public DateTime ReleasDate { get; set; }
         public bool isApproved { get; set; }
-
+        public GuestRequest(bool flagEntryDate)
+        {
+            Random rand = new Random (DateTime.Now.Millisecond);
+            int randBeginMonth = rand.Next(1, 12);
+            int randBeginDay = rand.Next(1, 31);
+            string beginDate = (string)(randBeginDay + "-" + randBeginDay);
+            entryDate = DateTime.Parse(beginDate);
+            int amountOfDays = rand.Next(2, 10);
+            int day= entryDate.Day + amountOfDays;
+            int month = entryDate.Month;
+            if(entryDate.Day + amountOfDays>31)
+            {
+                month++;
+                day = entryDate.Day + amountOfDays - 31;
+            }
+            string leaveDate = (string)(day + "-" + month);
+            ReleasDate = DateTime.Parse(leaveDate);
+        }
         public GuestRequest()
         {
             bool success = false;

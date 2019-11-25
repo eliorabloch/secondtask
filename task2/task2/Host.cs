@@ -10,18 +10,10 @@ namespace task2
     {
         public int HostKey;
         public List<HostingUnit> HostingUnitCollection { get; set; }
-
-        public Host(int hk, List<HostingUnit> l)
+        public Host(int hk, int numOfUnits)
         {
-            HostingUnitCollection = l;
+            IList<HostingUnit> HostingUnitCollection = new List<HostingUnit>();
             HostKey = hk;
-            foreach (HostingUnit item in HostingUnitCollection)
-            {
-                item.fillMatrix(item.dairy);
-
-            }
-
-
         }
         public HostingUnit this[int index]
         {
@@ -41,20 +33,14 @@ namespace task2
         }
         public bool AssignRequests(params GuestRequest[] requests)
         {
-            
             foreach (GuestRequest item in requests)
             {
-
                 if (this.SubmitRequest(item) == -1)
                 {
                     return false;
-                   
                 }
-
             }
             return true;
-
-            
         }
         public int GetHostAnnualBusyDays()
         {
@@ -67,7 +53,6 @@ namespace task2
             Console.WriteLine("This is the amount of occupide days in all the hotel units.");
             return sum;
         }
-
         public void SortUnits()
         {
             HostingUnitCollection.Sort();
@@ -81,16 +66,12 @@ namespace task2
                     Console.WriteLine();
                     Console.WriteLine("This is your hotel units key: ");
                     return (long)item.HostingUnitKey;
-
                 }
-
-
             }
             Console.WriteLine();
             Console.WriteLine("We are sorry to inform you that no hosting units are available on the days you requested.");
             return (long)-1;
         }
-
         public string toString(List<HostingUnit> L)
         {
             foreach (HostingUnit item in L)
@@ -101,6 +82,7 @@ namespace task2
             return str;
         }
     }
+
 
 
 }

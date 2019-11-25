@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace task2
 {
-
     class HostingUnit : IComparable
     {
         private static int stSerialKey = 10000000;
@@ -14,7 +13,6 @@ namespace task2
         public int HostingUnitKey { get { return stSerialKey; } }
         public void fillMatrix(bool[,] d)
         {
-
             for (int i = 0; i < 12; i++)//This for fills the array with false values
             {
                 for (int j = 1; j < 31; j++)
@@ -23,13 +21,10 @@ namespace task2
                 }
             }
         }
-        HostingUnit()
+        public HostingUnit()
         {
             dairy = new bool[12, 31];// Matrix of hotel capacity
             fillMatrix(dairy);
-
-
-
             stSerialKey++;
         }
         public int GetAnnualBusyDays()
@@ -48,7 +43,6 @@ namespace task2
             }
             Console.WriteLine("The amount of taken days: ");
             return counter;
-
         }
         public float GetAnnualBusyPercentage()
         {
@@ -73,8 +67,6 @@ namespace task2
         interface Icomparable
         {
             int compareTo(HostingUnit h);
-
-
         }
         int compareTo(HostingUnit h)
         {
@@ -90,19 +82,13 @@ namespace task2
             {
                 return -1;
             }
-
             return 0;
-
-
-
         }
-       
         public override string ToString()
         {
             Console.WriteLine();
             Console.WriteLine("This is your serialkey number: ");
             Console.WriteLine(stSerialKey);
-
             Console.WriteLine();
             for (int i = 0; i < 12; i++)
             {
@@ -137,7 +123,6 @@ namespace task2
             }
             string str = "Have a nice day!";
             return str;
-
         }
         public bool ApproveRequest(GuestRequest guestReq)
         {
@@ -147,11 +132,8 @@ namespace task2
             int newMonth = 0;
             if (guestReq.isApproved)
             {
-
-
                 int day = guestReq.entryDate.Day - 1;
                 int month = guestReq.entryDate.Month - 1;
-
                 if (guestReq.ReleasDate.Day - day < 1)
                 {
                     amount = 31 - day;
@@ -159,12 +141,10 @@ namespace task2
                     sumAmount = amount + newAmount;
                     newMonth++;
                 }
-
                 for (int i = 0; i < amount; i++)
                 {
                     dairy[month, day + i] = true;
                 }
-
                 for (int i = 1; i < newAmount + 1; i++)
                 {
                     dairy[newMonth, i] = true;
@@ -174,8 +154,6 @@ namespace task2
                 Console.WriteLine();
                 Console.WriteLine("We have set your vecaition, looking forward to seeing you!");
                 return true;
-
-
             }
             else
             {
@@ -184,7 +162,6 @@ namespace task2
                 return false;
             }
         }
-
         public int  CompareTo(object obj)
         {
             HostingUnit hu = (HostingUnit)obj;
