@@ -10,7 +10,7 @@ namespace task2
     {
         private static int stSerialKey = 10000000;
         public bool[,] dairy;
-        public int HostingUnitKey { get { return stSerialKey; } }
+        public int HostingUnitKey  { get; private set; }
         public void fillMatrix(bool[,] d)
         {
             for (int i = 0; i < 12; i++)//This for fills the array with false values
@@ -25,6 +25,7 @@ namespace task2
         {
             dairy = new bool[12, 31];// Matrix of hotel capacity
             fillMatrix(dairy);
+            HostingUnitKey = stSerialKey;
             stSerialKey++;
         }
         public int GetAnnualBusyDays()
@@ -41,7 +42,9 @@ namespace task2
                     }
                 }
             }
-            Console.WriteLine("The amount of taken days: ");
+            //Console.WriteLine("The amount of taken days: ");
+            ///Console.WriteLine(counter);
+           // Console.WriteLine();
             return counter;
         }
         public float GetAnnualBusyPercentage()
@@ -86,10 +89,10 @@ namespace task2
         }
         public override string ToString()
         {
-            Console.WriteLine();
-            Console.WriteLine("This is your serialkey number: ");
-            Console.WriteLine(stSerialKey);
-            Console.WriteLine();
+           // Console.WriteLine();
+           // Console.WriteLine("This is your serialkey number: ");
+            //Console.WriteLine(stSerialKey);
+           // Console.WriteLine();
             for (int i = 0; i < 12; i++)
             {
                 for (int j = 0; j < 31; j++)
@@ -124,45 +127,78 @@ namespace task2
             string str = "Have a nice day!";
             return str;
         }
+
         public bool ApproveRequest(GuestRequest guestReq)
         {
             int amount = 0;
             int newAmount = 0;
             int sumAmount = 0;
-            int newMonth = 0;
-            if (guestReq.isApproved)
+            int day = guestReq.entryDate.Day - 1;
+            int month = guestReq.entryDate.Month - 1;
+            if (guestReq.ReleasDate.Day - day < 1)
             {
-                int day = guestReq.entryDate.Day - 1;
-                int month = guestReq.entryDate.Month - 1;
-                if (guestReq.ReleasDate.Day - day < 1)
+                amount = 31 - day;
+                newAmount = day;
+                sumAmount = amount + newAmount;
+            }
+            bool available = false;
+            if (!dairy[month, day])// If the room ia availeble we will enter the for.
+            {
+                for (int i = 0; i < amount - 1; i++)//We will check that we have the room availeble for the whole amount that the costumer requested. Amount-1 is because if the last day is taken it is dose not matter.
                 {
-                    amount = 31 - day;
-                    newAmount = day;
-                    sumAmount = amount + newAmount;
-                    newMonth++;
+                    if (dairy[month, day + i])
+                    {
+                       // Console.WriteLine("Sorry, the request has been denighd.");
+                        return false;
+                    }
                 }
-                for (int i = 0; i < amount; i++)
-                {
-                    dairy[month, day + i] = true;
-                }
-                for (int i = 1; i < newAmount + 1; i++)
-                {
-                    dairy[newMonth, i] = true;
-                }
-                day = guestReq.entryDate.Day + 1;
-                month = guestReq.entryDate.Month + 1;
-                Console.WriteLine();
-                Console.WriteLine("We have set your vecaition, looking forward to seeing you!");
-                return true;
             }
             else
             {
-                Console.WriteLine();
-                Console.WriteLine("Sorry, the days you have requested are already occoupide.");
+               // Console.WriteLine("Sorry, the request has been denighd.");
                 return false;
             }
+            int month2 = 0;
+            bool available2 = false;
+            if (available)
+            {
+                for (int i = 0; i < newAmount - 1; i++)//We will check that we have the room availeble for the whole amount that the costumer requested. Amount-1 is because if the last day is taken it is dose not matter.
+                {
+                    if (dairy[month2, day + i])
+                    {
+                        //Console.WriteLine("Sorry, the request has been denighd.");
+                        return false;
+                    }
+                }
+            }
+
+            if (!(available && available2))// This is where we update the capacity.
+            {
+
+                for (int i = 0; i < amount; i++)
+                {
+                    dairy[month, i] = true;
+                }
+
+                if (month2 != 0)
+                {
+                    for (int i = 0; i < newAmount; i++)
+                    {
+                        dairy[month2, i] = true;
+
+                    }
+                }
+
+
+               // Console.WriteLine("The request has been answerred");
+                return true;
+            }
+            day = guestReq.entryDate.Day + 1;
+            month = guestReq.entryDate.Month + 1;
+            return false;
         }
-        public int  CompareTo(object obj)
+
+        public int CompareTo(object obj)
         {
             HostingUnit hu = (HostingUnit)obj;
             if (this.GetAnnualBusyDays() > hu.GetAnnualBusyDays())
@@ -179,8 +215,12 @@ namespace task2
             }
         }
 
-    }
 
+    }
+   
 
 }
+
+
+
 

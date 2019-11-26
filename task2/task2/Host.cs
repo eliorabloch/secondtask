@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,24 +7,33 @@ using System.Threading.Tasks;
 
 namespace task2
 {
-    class Host
+    class Host : IEnumerable
     {
         public int HostKey;
         public List<HostingUnit> HostingUnitCollection { get; set; }
+        public Host() { HostingUnitCollection = new List<HostingUnit>(); }
         public Host(int hk, int numOfUnits)
         {
-            IList<HostingUnit> HostingUnitCollection = new List<HostingUnit>();
+            HostingUnitCollection = new List<HostingUnit>();
+            for (int i = 0; i < numOfUnits; i++)
+            {
+                HostingUnitCollection.Add(new HostingUnit());
+            }
             HostKey = hk;
+
         }
         public HostingUnit this[int index]
         {
             get
             {
-                foreach (var item in HostingUnitCollection)
+                for (int i = 0; i < HostingUnitCollection.Count; i++)
                 {
-                    if (index== item.HostingUnitKey)
-                    { return item; }
+                    if (index == i)
+                    {
+                        return HostingUnitCollection[i];
+                    }
                 }
+
                 return null;
             }
             set
@@ -49,7 +59,7 @@ namespace task2
             {
                 sum += item.GetAnnualBusyDays();
             }
-            Console.WriteLine();
+           // Console.WriteLine();
             Console.WriteLine("This is the amount of occupide days in all the hotel units.");
             return sum;
         }
@@ -63,13 +73,17 @@ namespace task2
             {
                 if (item.ApproveRequest(guestReq))
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("This is your hotel units key: ");
+                   // Console.WriteLine();
+                    //  Console.WriteLine("This is your hotel units key: ");
+                    guestReq.isApproved = true;
+                    // Console.WriteLine(item.HostingUnitKey);
+                   // Console.WriteLine();
                     return (long)item.HostingUnitKey;
                 }
             }
             Console.WriteLine();
-            Console.WriteLine("We are sorry to inform you that no hosting units are available on the days you requested.");
+            // Console.WriteLine("We are sorry to inform you that no hosting units are available on the days you requested.");
+            guestReq.isApproved = false;
             return (long)-1;
         }
         public string toString(List<HostingUnit> L)
@@ -81,6 +95,13 @@ namespace task2
             string str = "Bye";
             return str;
         }
+
+        public IEnumerator GetEnumerator()
+        {
+            return HostingUnitCollection.GetEnumerator();
+        }
+
+       
     }
 
 

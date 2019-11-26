@@ -17,33 +17,19 @@ namespace task2
 
         static void Main(string[] args)
         {
-            bool[,] capacity;
-            capacity = new bool[12, 31];// Matrix of hotel capacity
-            for (int i = 0; i < 12; i++)//This for fills the array with false values
-            {
-                for (int j = 1; j < 31; j++)
-                {
-                    capacity[i, j] = false;
-                }
-            }
-
-            GuestRequest gr = new GuestRequest();
-            Console.WriteLine(gr.entryDate);
-            Console.WriteLine(gr.ReleasDate);
-            gr.approvedFunc(capacity);
 
 
 
             List<Host> lsHosts;
-            lsHosts = new List<Host>()
-        {
-       new Host(1, rand.Next(1,5)),
-       new Host(2, rand.Next(1,5)),
-       new Host(3, rand.Next(1,5)),
-       new Host(4, rand.Next(1,5)),
-       new Host(5, rand.Next(1,5))
- };
-            for (int i = 0; i < 100; i++)
+            lsHosts = new List<Host>
+                                    {
+                                       new Host(1, rand.Next(1,5)),
+                                       new Host(2, rand.Next(1,5)),
+                                       new Host(3, rand.Next(1,5)),
+                                       new Host(4, rand.Next(1,5)),
+                                       new Host(5, rand.Next(1,5))
+                                    };
+            for (int i = 0; i < 10; i++)
             {
                 foreach (var host in lsHosts)
                 {
@@ -69,7 +55,7 @@ namespace task2
             }
             //Create dictionary for all units <unitkey, occupancy_percentage>
             Dictionary<long, float> dict = new Dictionary<long, float>();
-            foreach (var Host in lsHosts)
+            foreach (Host host in lsHosts)
             {
                 //test Host IEnuramble is ok
                 foreach (HostingUnit unit in host)
@@ -79,9 +65,9 @@ namespace task2
             }
             //get max value in dictionary
             float maxVal = dict.Values.Max();
-            //get max value key name in dictionary
+            // get max value key name in dictionary
             long maxKey = dict.FirstOrDefault(x => x.Value == dict.Values.Max()).Key;
-            //find the Host that its unit has the maximum occupancy percentage
+            // find the Host that its unit has the maximum occupancy percentage
             foreach (var host in lsHosts)
             {
                 //test indexer of Host
@@ -101,4 +87,6 @@ namespace task2
             }
         }
     }
-}
+}
+
+
