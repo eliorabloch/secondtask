@@ -29,7 +29,7 @@ namespace task2
                                        new Host(4, rand.Next(1,5)),
                                        new Host(5, rand.Next(1,5))
                                     };
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 foreach (var host in lsHosts)
                 {
@@ -78,6 +78,7 @@ namespace task2
                         //sort this host by occupancy of its units
                         host.SortUnits();
                         //print this host detailes
+                        host[i].ToString();
                         Console.WriteLine("**** Details of the Host with the most occupied unit:\n");
 
                         Console.WriteLine(host);

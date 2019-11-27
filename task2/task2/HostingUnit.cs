@@ -11,7 +11,7 @@ namespace task2
         private static int stSerialKey = 10000000;
         public bool[,] dairy;
         public int HostingUnitKey  { get; private set; }
-        public void fillMatrix(bool[,] d)
+        public void fillMatrix(bool[,] d)//filing the dairy with fals valuse
         {
             for (int i = 0; i < 12; i++)//This for fills the array with false values
             {

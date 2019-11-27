@@ -10,31 +10,31 @@ namespace task2
     {
         public DateTime entryDate { get; set; }
         public DateTime ReleasDate { get; set; }
-        public bool isApproved  { get; set;  }
-        public GuestRequest(bool flagEntryDate)
+        public bool isApproved { get; set; }
+        public GuestRequest(bool flagEntryDate)//constractor for a random guest
         {
             Random rand = new Random(DateTime.Now.Millisecond);
             string leaveDate = getRandomDateString();
             DateTime dateOut;
-            while (!DateTime.TryParse(leaveDate, out dateOut))
+            while (!DateTime.TryParse(leaveDate, out dateOut))//try to turn the string into a daytime parameter.
             {
-                leaveDate = getRandomDateString();
+                leaveDate = getRandomDateString();//if the date doesnt exist, we get a new random date
             }
             entryDate = dateOut;
-            ReleasDate = entryDate.AddDays(rand.Next(2, 10));
+            ReleasDate = entryDate.AddDays(rand.Next(2, 10));//add days,and gives us the release date.
         }
 
-        private string getRandomDateString()
+        private string getRandomDateString()//func that creates the random guest request
         {
             Random rand = new Random(DateTime.Now.Millisecond);
-            int randBeginMonth = rand.Next(1, 12);
-            int randBeginDay = rand.Next(1, 31);
-            
+            int randBeginMonth = rand.Next(1, 12);//random month
+            int randBeginDay = rand.Next(1, 31);//random day
+
             string leaveDate = (string)(randBeginDay + "-" + randBeginMonth);
-            return leaveDate;
+            return leaveDate;//returns the string with the new random date.
         }
 
-        public GuestRequest()
+        public GuestRequest()//my regular constractor
         {
             bool success = false;
             bool success2 = false;
@@ -79,9 +79,9 @@ namespace task2
         }
     }
 }
-            
 
-        
-    
-  
-       
+
+
+
+
+
