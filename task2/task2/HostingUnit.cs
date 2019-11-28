@@ -10,8 +10,8 @@ namespace task2
     {
         private static int stSerialKey = 10000000;
         public bool[,] dairy;
-        public int HostingUnitKey  { get; private set; }
-        public void fillMatrix(bool[,] d)//filing the dairy with fals valuse
+        public int HostingUnitKey { get; private set; }
+        public void FillMatrix(bool[,] d)//Filing the dairy with fals valuse
         {
             for (int i = 0; i < 12; i++)//This for fills the array with false values
             {
@@ -21,14 +21,16 @@ namespace task2
                 }
             }
         }
-        public HostingUnit()
+
+        public HostingUnit()//Constructor.
         {
-            dairy = new bool[12, 31];// Matrix of hotel capacity
-            fillMatrix(dairy);
+            dairy = new bool[12, 31];// Matrix of hotel capacity.
+            FillMatrix(dairy);
             HostingUnitKey = stSerialKey;
             stSerialKey++;
         }
-        public int GetAnnualBusyDays()
+
+        public int GetAnnualBusyDays()// Function who returns the total number of busy days per year.
         {
             Console.WriteLine();
             int counter = 0;
@@ -47,7 +49,8 @@ namespace task2
            // Console.WriteLine();
             return counter;
         }
-        public float GetAnnualBusyPercentage()
+
+        public float GetAnnualBusyPercentage()//A function that returns the percentage of annual occupancy.
         {
             Console.WriteLine();
             int counter = 0;
@@ -61,17 +64,19 @@ namespace task2
                     }
                 }
             }
-            Console.WriteLine("The precentege of the yearly capacity: ");
+            //Console.WriteLine("The precentege of the yearly capacity: ");
             double precent = 0;
             precent = ((double)counter / 365) * (100);
             Console.WriteLine((float)precent);
             return (float)precent;
         }
+
         interface Icomparable
         {
             int compareTo(HostingUnit h);
         }
-        int compareTo(HostingUnit h)
+
+        int compareTo(HostingUnit h)//Comparison of hosting units by total occupied days per year.
         {
             if (this.GetAnnualBusyDays() > h.GetAnnualBusyDays())
             {
@@ -87,12 +92,13 @@ namespace task2
             }
             return 0;
         }
-        public override string ToString()
+
+        public override string ToString()//A function that displays for the unit its serial number and list of periods in which it is occupied.
         {
-           // Console.WriteLine();
-           // Console.WriteLine("This is your serialkey number: ");
+            // Console.WriteLine();
+            // Console.WriteLine("This is your serialkey number: ");
             //Console.WriteLine(stSerialKey);
-           // Console.WriteLine();
+            // Console.WriteLine();
             for (int i = 0; i < 12; i++)
             {
                 for (int j = 0; j < 31; j++)
@@ -128,13 +134,14 @@ namespace task2
             return str;
         }
 
-        public bool ApproveRequest(GuestRequest guestReq)
+        public bool ApproveRequest(GuestRequest guestReq)//A function that accepts a hosting request and checks whether it is accepted or not
+            //If the request is approved, it changes those days to occupancy.
         {
             int amount = 0;
             int newAmount = 0;
             int sumAmount = 0;
-            int day = guestReq.entryDate.Day - 1;
-            int month = guestReq.entryDate.Month - 1;
+            int day = guestReq.EntryDate.Day - 1;
+            int month = guestReq.EntryDate.Month - 1;
             if (guestReq.ReleasDate.Day - day < 1)
             {
                 amount = 31 - day;
@@ -148,14 +155,14 @@ namespace task2
                 {
                     if (dairy[month, day + i])
                     {
-                       // Console.WriteLine("Sorry, the request has been denighd.");
+                        // Console.WriteLine("Sorry, the request has been denighd.");
                         return false;
                     }
                 }
             }
             else
             {
-               // Console.WriteLine("Sorry, the request has been denighd.");
+                // Console.WriteLine("Sorry, the request has been denighd.");
                 return false;
             }
             int month2 = 0;
@@ -171,15 +178,12 @@ namespace task2
                     }
                 }
             }
-
             if (!(available && available2))// This is where we update the capacity.
             {
-
                 for (int i = 0; i < amount; i++)
                 {
                     dairy[month, i] = true;
                 }
-
                 if (month2 != 0)
                 {
                     for (int i = 0; i < newAmount; i++)
@@ -188,17 +192,15 @@ namespace task2
 
                     }
                 }
-
-
-               // Console.WriteLine("The request has been answerred");
+                // Console.WriteLine("The request has been answerred");
                 return true;
             }
-            day = guestReq.entryDate.Day + 1;
-            month = guestReq.entryDate.Month + 1;
+            day = guestReq.EntryDate.Day + 1;
+            month = guestReq.EntryDate.Month + 1;
             return false;
         }
 
-        public int CompareTo(object obj)
+        public int CompareTo(object obj)//Comparison of accommodation units by total occupied days per year.
         {
             HostingUnit hu = (HostingUnit)obj;
             if (this.GetAnnualBusyDays() > hu.GetAnnualBusyDays())
@@ -214,11 +216,7 @@ namespace task2
                 return -1;
             }
         }
-
-
     }
-   
-
 }
 
 

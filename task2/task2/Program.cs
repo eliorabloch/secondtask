@@ -17,9 +17,6 @@ namespace task2
 
         static void Main(string[] args)
         {
-
-
-
             List<Host> lsHosts;
             lsHosts = new List<Host>
                                     {
@@ -33,7 +30,6 @@ namespace task2
             {
                 foreach (var host in lsHosts)
                 {
-
                     GuestRequest gs1 = CreateRandomRequest();
                     GuestRequest gs2 = CreateRandomRequest();
                     GuestRequest gs3 = CreateRandomRequest();
@@ -80,14 +76,16 @@ namespace task2
                         //print this host detailes
                         host[i].ToString();
                         Console.WriteLine("**** Details of the Host with the most occupied unit:\n");
-
                         Console.WriteLine(host);
                         break;
                     }
                 }
             }
+            Console.ReadKey();
         }
+        
     }
 }
 
-
+
+

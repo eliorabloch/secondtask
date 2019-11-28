@@ -8,33 +8,32 @@ namespace task2
 {
     class GuestRequest
     {
-        public DateTime entryDate { get; set; }
+        public DateTime EntryDate { get; set; }
         public DateTime ReleasDate { get; set; }
-        public bool isApproved { get; set; }
-        public GuestRequest(bool flagEntryDate)//constractor for a random guest
+        public bool IsApproved { get; set; }
+        public GuestRequest(bool flagEntryDate)//Constractor for a random guest.
         {
             Random rand = new Random(DateTime.Now.Millisecond);
             string leaveDate = getRandomDateString();
             DateTime dateOut;
-            while (!DateTime.TryParse(leaveDate, out dateOut))//try to turn the string into a daytime parameter.
+            while (!DateTime.TryParse(leaveDate, out dateOut))//Try to turn the string into a daytime parameter.
             {
-                leaveDate = getRandomDateString();//if the date doesnt exist, we get a new random date
+                leaveDate = getRandomDateString();//If the date doesnt exist, we get a new random date.
             }
-            entryDate = dateOut;
-            ReleasDate = entryDate.AddDays(rand.Next(2, 10));//add days,and gives us the release date.
+            EntryDate = dateOut;
+            ReleasDate = EntryDate.AddDays(rand.Next(2, 10));//Add days,and gives us the release date.
         }
 
-        private string getRandomDateString()//func that creates the random guest request
+        private string getRandomDateString()//Funcion that creates the random guest request.
         {
             Random rand = new Random(DateTime.Now.Millisecond);
-            int randBeginMonth = rand.Next(1, 12);//random month
-            int randBeginDay = rand.Next(1, 31);//random day
-
+            int randBeginMonth = rand.Next(1, 12);//Random month.
+            int randBeginDay = rand.Next(1, 31);//Random day.
             string leaveDate = (string)(randBeginDay + "-" + randBeginMonth);
-            return leaveDate;//returns the string with the new random date.
+            return leaveDate;//Returns the string with the new random date.
         }
 
-        public GuestRequest()//my regular constractor
+        public GuestRequest()//Regular constractor.
         {
             bool success = false;
             bool success2 = false;
@@ -45,7 +44,7 @@ namespace task2
                 try
                 {
                     string date = Console.ReadLine();
-                    entryDate = DateTime.Parse(date);
+                    EntryDate = DateTime.Parse(date);
                     success = true;
                 }
                 catch
