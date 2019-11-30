@@ -32,7 +32,7 @@ namespace task2
 
         public int GetAnnualBusyDays()// Function who returns the total number of busy days per year.
         {
-            Console.WriteLine();
+            // Console.WriteLine();
             int counter = 0;
             for (int i = 0; i < 11; i++)
             {
@@ -55,8 +55,8 @@ namespace task2
             Console.WriteLine();
             int counter = GetAnnualBusyDays();
             double precent = ((double)counter / 365) * (100);
-            Console.WriteLine($"The precentege of the yearly capacity: {(float)precent}%");
-            Console.WriteLine();
+            // Console.WriteLine($"The precentege of the yearly capacity: {(float)precent}%");
+            // Console.WriteLine();
             return (float)precent;
         }
 
@@ -84,110 +84,60 @@ namespace task2
 
         public override string ToString()//A function that displays for the unit its serial number and list of periods in which it is occupied.
         {
-            // Console.WriteLine();
-            // Console.WriteLine("This is your serialkey number: ");
-            //Console.WriteLine(stSerialKey);
-            // Console.WriteLine();
+            string hostingUnitAsString = "";
+            hostingUnitAsString += "This is your serialkey number: \n";
+            hostingUnitAsString += this.HostingUnitKey + "\n";
+            hostingUnitAsString += "Busy days: " + GetAnnualBusyDays() + "\n";
+            
+            hostingUnitAsString += "\n";
             for (int i = 0; i < 12; i++)
             {
                 for (int j = 0; j < 31; j++)
                 {
                     if (dairy[i, j])//It will enter this if if the matrix has true on this day and month
                     {
-                        Console.WriteLine("First day of stay: ");
-                        Console.WriteLine("Month: ");
-                        Console.WriteLine(++i);//We  do ++ because we did -- at the begining,do to the matrix starting from 0
-                        Console.WriteLine("Day: ");
-                        Console.WriteLine(++j);// Same as ++i.
-                        Console.WriteLine("Last day of stay: ");
-                        --i; --j;
+                        hostingUnitAsString += $"Stay days: {i + 1}-{j + 1} --> ";
                         while (dairy[i, j])//As long as we still have true, have the days ++.
                         {
                             if (j == 30 && i != 12)
                             {
                                 i++;
-                                j = 1;
+                                j = 0;
                             }
                             j++;
                         }
-                        Console.WriteLine("Month: ");
-                        Console.WriteLine(++i);
-                        Console.WriteLine("Day: ");
-                        Console.WriteLine(j);
-                        --j;
-                        --i;
+                        hostingUnitAsString += $"{i + 1}-{j + 1}\n";
                     }
                 }
             }
-            string str = "Have a nice day!";
-            return str;
+            return hostingUnitAsString;
         }
 
         public bool ApproveRequest(GuestRequest guestReq)//A function that accepts a hosting request and checks whether it is accepted or not
-            //If the request is approved, it changes those days to occupancy.
+                                                         //If the request is approved, it changes those days to occupancy.
         {
-            int amount = 0;
-            int newAmount = 0;
-            int sumAmount = 0;
-            int day = guestReq.EntryDate.Day - 1;
-            int month = guestReq.EntryDate.Month - 1;
-            if (guestReq.ReleasDate.Day - day < 1)
+            // check if request is allowed
+            DateTime temp = guestReq.EntryDate;
+            while (temp < guestReq.ReleasDate)
             {
-                amount = 31 - day;
-                newAmount = day;
-                sumAmount = amount + newAmount;
-            }
-            bool available = false;
-            if (!dairy[month, day])// If the room ia availeble we will enter the for.
-            {
-                for (int i = 0; i < amount - 1; i++)//We will check that we have the room availeble for the whole amount that the costumer requested. Amount-1 is because if the last day is taken it is dose not matter.
+                if (this.dairy[temp.Month - 1, temp.Day - 1])
                 {
-                    if (dairy[month, day + i])
-                    {
-                        // Console.WriteLine("Sorry, the request has been denighd.");
-                        return false;
-                    }
+                    return false;
                 }
+                temp = temp.AddDays(1);
             }
-            else
-            {
-                // Console.WriteLine("Sorry, the request has been denighd.");
-                return false;
-            }
-            int month2 = 0;
-            bool available2 = false;
-            if (available)
-            {
-                for (int i = 0; i < newAmount - 1; i++)//We will check that we have the room availeble for the whole amount that the costumer requested. Amount-1 is because if the last day is taken it is dose not matter.
-                {
-                    if (dairy[month2, day + i])
-                    {
-                        //Console.WriteLine("Sorry, the request has been denighd.");
-                        return false;
-                    }
-                }
-            }
-            if (!(available && available2))// This is where we update the capacity.
-            {
-                for (int i = 0; i < amount; i++)
-                {
-                    dairy[month, i] = true;
-                }
-                if (month2 != 0)
-                {
-                    for (int i = 0; i < newAmount; i++)
-                    {
-                        dairy[month2, i] = true;
 
-                    }
-                }
-                // Console.WriteLine("The request has been answerred");
-                return true;
+            // update the dairy with the new request
+            temp = guestReq.EntryDate;
+            while (temp < guestReq.ReleasDate)
+            {
+                this.dairy[temp.Month - 1, temp.Day - 1] = true;
+                temp = temp.AddDays(1);
             }
-            day = guestReq.EntryDate.Day + 1;
-            month = guestReq.EntryDate.Month + 1;
-            return false;
+
+            return true;
         }
+
 
         public int CompareTo(object obj)//Comparison of accommodation units by total occupied days per year.
         {

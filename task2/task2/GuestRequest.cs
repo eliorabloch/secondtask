@@ -14,11 +14,11 @@ namespace task2
         public GuestRequest(bool flagEntryDate)//Constractor for a random guest.
         {
             Random rand = new Random(DateTime.Now.Millisecond);
-            string leaveDate = getRandomDateString();
+            string dateAsString = getRandomDateString();
             DateTime dateOut;
-            while (!DateTime.TryParse(leaveDate, out dateOut))//Try to turn the string into a daytime parameter.
+            while (!DateTime.TryParse(dateAsString, out dateOut))//Try to turn the string into a daytime parameter.
             {
-                leaveDate = getRandomDateString();//If the date doesnt exist, we get a new random date.
+                dateAsString = getRandomDateString();//If the date doesnt exist, we get a new random date.
             }
             EntryDate = dateOut;
             ReleasDate = EntryDate.AddDays(rand.Next(2, 10));//Add days,and gives us the release date.

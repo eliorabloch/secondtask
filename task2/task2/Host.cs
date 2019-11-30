@@ -22,7 +22,15 @@ namespace task2
             HostKey = hk;
 
         }
-
+        public override string ToString()
+        {
+            string hostAsString = "";
+            foreach (var item in HostingUnitCollection)
+            {
+                hostAsString += item + "\n";
+            }
+            return hostAsString;
+        }
         public HostingUnit this[int index]//indexer
         {
             get
@@ -86,20 +94,10 @@ namespace task2
                     return (long)item.HostingUnitKey;
                 }
             }
-            Console.WriteLine();
+           // Console.WriteLine();
             // Console.WriteLine("We are sorry to inform you that no hosting units are available on the days you requested.");
             guestReq.IsApproved = false;//If there is no available unit.
             return (long)-1;
-        }
-
-        public string toString(List<HostingUnit> L)
-        {
-            foreach (HostingUnit item in L)
-            {
-                item.ToString();
-            }
-            string str = "Bye";
-            return str;
         }
 
         public IEnumerator GetEnumerator()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace task2
@@ -31,7 +32,9 @@ namespace task2
                 foreach (var host in lsHosts)
                 {
                     GuestRequest gs1 = CreateRandomRequest();
+                   Thread.Sleep(7);
                     GuestRequest gs2 = CreateRandomRequest();
+                    Thread.Sleep(4);
                     GuestRequest gs3 = CreateRandomRequest();
                     switch (rand.Next(1, 4))
                     {
@@ -74,7 +77,7 @@ namespace task2
                         //sort this host by occupancy of its units
                         host.SortUnits();
                         //print this host detailes
-                        host[i].ToString();
+                       
                         Console.WriteLine("**** Details of the Host with the most occupied unit:\n");
                         Console.WriteLine(host);
                         break;
