@@ -53,21 +53,10 @@ namespace task2
         public float GetAnnualBusyPercentage()//A function that returns the percentage of annual occupancy.
         {
             Console.WriteLine();
-            int counter = 0;
-            for (int i = 0; i < 11; i++)
-            {
-                for (int j = 0; j < 30; j++)
-                {
-                    if (dairy[i, j])
-                    {
-                        counter++;// The counter will count how many days are taken.
-                    }
-                }
-            }
-            //Console.WriteLine("The precentege of the yearly capacity: ");
-            double precent = 0;
-            precent = ((double)counter / 365) * (100);
-            Console.WriteLine((float)precent);
+            int counter = GetAnnualBusyDays();
+            double precent = ((double)counter / 365) * (100);
+            Console.WriteLine($"The precentege of the yearly capacity: {(float)precent}%");
+            Console.WriteLine();
             return (float)precent;
         }
 
