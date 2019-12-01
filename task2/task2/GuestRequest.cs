@@ -24,6 +24,17 @@ namespace task2
             ReleasDate = EntryDate.AddDays(rand.Next(2, 10));//Add days,and gives us the release date.
         }
 
+        public override string ToString()
+        {
+            string guestreq="";
+            guestreq += "this is your request information: \n";
+            guestreq += $"entry date: {EntryDate} \n";
+            guestreq += $"Realese date: {ReleasDate} \n";
+            return guestreq;
+
+
+        }
+
         private string getRandomDateString()//Funcion that creates the random guest request.
         {
             Random rand = new Random(DateTime.Now.Millisecond);

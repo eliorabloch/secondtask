@@ -29,7 +29,7 @@ namespace task2
                                     };
             for (int i = 0; i < 100; i++)
             {
-                foreach (var host in lsHosts)
+                foreach (var host in lsHosts)//We added sleep to avoid the same random numbers for each unit.
                 {
                     GuestRequest gs1 = CreateRandomRequest();
                    Thread.Sleep(7);

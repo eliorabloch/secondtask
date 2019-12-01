@@ -11,7 +11,7 @@ namespace task2
         private static int stSerialKey = 10000000;
         public bool[,] dairy;
         public int HostingUnitKey { get; private set; }
-        public void FillMatrix(bool[,] d)//Filing the dairy with fals valuse
+        public void FillMatrix(bool[,] d)//Filing the dairy with false valuse
         {
             for (int i = 0; i < 12; i++)//This for fills the array with false values
             {
@@ -44,9 +44,7 @@ namespace task2
                     }
                 }
             }
-            //Console.WriteLine("The amount of taken days: ");
-            ///Console.WriteLine(counter);
-           // Console.WriteLine();
+           
             return counter;
         }
 
@@ -54,13 +52,11 @@ namespace task2
         {
             Console.WriteLine();
             int counter = GetAnnualBusyDays();
-            double precent = ((double)counter / 365) * (100);
-            // Console.WriteLine($"The precentege of the yearly capacity: {(float)precent}%");
-            // Console.WriteLine();
+            double precent = ((double)counter / 365) * (100); 
             return (float)precent;
         }
 
-        interface Icomparable
+        interface Icomparable //compares units by amount of busy days;
         {
             int compareTo(HostingUnit h);
         }
@@ -110,7 +106,7 @@ namespace task2
                     }
                 }
             }
-            return hostingUnitAsString;
+            return hostingUnitAsString;//Returning the string with all the hosts information
         }
 
         public bool ApproveRequest(GuestRequest guestReq)//A function that accepts a hosting request and checks whether it is accepted or not

@@ -70,8 +70,7 @@ namespace task2
             {
                 sumBusyDays += item.GetAnnualBusyDays();
             }
-            // Console.WriteLine();
-            //Console.WriteLine("This is the amount of occupide days in all the hotel units:");
+            
             return sumBusyDays;
         }
 
@@ -86,16 +85,13 @@ namespace task2
             {
                 if (item.ApproveRequest(guestReq))//If there is an hosting unit returns its key number.
                 {
-                    // Console.WriteLine();
-                    //  Console.WriteLine("This is your hotel units key: ");
+                    
                     guestReq.IsApproved = true;
-                    // Console.WriteLine(item.HostingUnitKey);
-                    // Console.WriteLine();
+                    
                     return (long)item.HostingUnitKey;
                 }
             }
-           // Console.WriteLine();
-            // Console.WriteLine("We are sorry to inform you that no hosting units are available on the days you requested.");
+          
             guestReq.IsApproved = false;//If there is no available unit.
             return (long)-1;
         }
